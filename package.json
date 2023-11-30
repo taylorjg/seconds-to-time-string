@@ -4,11 +4,18 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest --reporter verbose",
+    "lint": "eslint ."
   },
   "author": "Jonathan Taylor",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-vitest": "^0.3.10",
+    "eslint-plugin-vitest-globals": "^1.4.0",
+    "prettier": "^3.1.0",
     "vitest": "^0.34.6"
   }
 }
