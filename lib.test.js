@@ -8,12 +8,19 @@ describe("secondsToTimeString tests", () => {
       { seconds: null, string: errorResponse },
       { seconds: undefined, string: errorResponse },
       { seconds: "bogus", string: errorResponse },
+      { seconds: true, string: errorResponse },
+      { seconds: new Date(), string: errorResponse },
       { seconds: {}, string: errorResponse },
       { seconds: -1, string: errorResponse },
       { seconds: 1.5, string: errorResponse },
-      { seconds: 0, string: "" },
     ])("$seconds => $string", ({ seconds, string }) => {
       expect(secondsToTimeString(seconds)).toBe(string);
+    });
+  });
+
+  describe("unknown scenario", () => {
+    it("0 seconds should return empty string ?", () => {
+      expect(secondsToTimeString(0)).toBe("");
     });
   });
 
