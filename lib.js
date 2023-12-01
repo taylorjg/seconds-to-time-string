@@ -21,18 +21,19 @@ const formatCount = (count, designation) => {
   }
 };
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat
+const formatter = new Intl.ListFormat("en", {
+  style: "long",
+  type: "conjunction",
+});
+
 const formatBits = (bits) => {
   const nonEmptyBits = bits.filter(Boolean);
+  const formatted = formatter.format(nonEmptyBits);
 
-  if (nonEmptyBits.length > 2) {
-    const allButLastBits = nonEmptyBits.slice(0, -1);
-    const allButLastBitsJoined = allButLastBits.join(", ");
-
-    const lastBit = nonEmptyBits.slice(-1)[0];
-    return [allButLastBitsJoined, lastBit].join(" and ");
-  }
-
-  return nonEmptyBits.join(" and ");
+  // We don't want the Oxford comma! (aka serial comma)
+  // https://en.wikipedia.org/wiki/Serial_comma
+  return formatted.replace(", and", " and");
 };
 
 export const secondsToTimeString = (seconds) => {
