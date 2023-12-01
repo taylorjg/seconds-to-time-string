@@ -11,15 +11,17 @@ describe("secondsToTimeString tests", () => {
       { dodgyInput: {} },
       { dodgyInput: -1 },
       { dodgyInput: 1.5 },
-    ])("dodgy input: $dodgyInput", ({ dodgyInput }) => {
+    ])("dodgy input should throw an error: $dodgyInput", ({ dodgyInput }) => {
       expect(() => secondsToTimeString(dodgyInput)).toThrowError(
         "Don't be silly"
       );
     });
   });
 
-  describe("unknown scenario", () => {
-    it("0 seconds should return empty string ?", () => {
+  describe("unspecified scenario", () => {
+    // 60 seconds returns "1 minute" not "1 minute and 0 seconds".
+    // So 0 seconds should probably return an empty string.
+    it("0 seconds should return an empty string", () => {
       expect(secondsToTimeString(0)).toBe("");
     });
   });
