@@ -1,6 +1,11 @@
 const ONE_MINUTE_AS_SECONDS = 60;
 const ONE_HOUR_AS_SECONDS = ONE_MINUTE_AS_SECONDS * 60;
 
+const BREAKPOINTS = [
+  { threshold: ONE_HOUR_AS_SECONDS, designation: "hour" },
+  { threshold: ONE_MINUTE_AS_SECONDS, designation: "minute" },
+];
+
 const formatCount = (count, designation) => {
   switch (count) {
     case 0:
@@ -31,30 +36,17 @@ export const secondsToTimeString = (seconds) => {
 
   const bits = [];
 
-  if (seconds < ONE_MINUTE_AS_SECONDS) {
-    bits.push(formatCount(seconds, "second"));
-  } else {
-    if (seconds < ONE_HOUR_AS_SECONDS) {
-      const minutes = Math.floor(seconds / ONE_MINUTE_AS_SECONDS);
-      const remainingSeconds = seconds % ONE_MINUTE_AS_SECONDS;
+  let remainingSeconds = seconds;
 
-      bits.push(formatCount(minutes, "minute"));
-
-      if (remainingSeconds > 0) {
-        bits.push(formatCount(remainingSeconds, "second"));
-      }
-    } else {
-      const hours = Math.floor(seconds / ONE_HOUR_AS_SECONDS);
-      const minutes = Math.floor(
-        (seconds % ONE_HOUR_AS_SECONDS) / ONE_MINUTE_AS_SECONDS
-      );
-      const remainingSeconds = seconds % ONE_MINUTE_AS_SECONDS;
-
-      bits.push(formatCount(hours, "hour"));
-      bits.push(formatCount(minutes, "minute"));
-      bits.push(formatCount(remainingSeconds, "second"));
+  for (const { threshold, designation } of BREAKPOINTS) {
+    if (remainingSeconds >= threshold) {
+      const count = Math.floor(remainingSeconds / threshold);
+      bits.push(formatCount(count, designation));
+      remainingSeconds -= count * threshold;
     }
   }
+
+  bits.push(formatCount(remainingSeconds, "second"));
 
   return formatBits(bits);
 };
