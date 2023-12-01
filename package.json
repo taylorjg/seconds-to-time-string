@@ -1,6 +1,6 @@
 {
   "name": "seconds-to-time-string",
-  "description": "",
+  "description": "Implement a function which takes a number of seconds and returns that number of seconds converted into a readable string",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
