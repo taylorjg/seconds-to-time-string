@@ -1,20 +1,20 @@
 import { secondsToTimeString } from "./lib";
 
-const errorResponse = "Don't be silly";
-
 describe("secondsToTimeString tests", () => {
   describe("error scenarios", () => {
     it.each([
-      { seconds: null, string: errorResponse },
-      { seconds: undefined, string: errorResponse },
-      { seconds: "bogus", string: errorResponse },
-      { seconds: true, string: errorResponse },
-      { seconds: new Date(), string: errorResponse },
-      { seconds: {}, string: errorResponse },
-      { seconds: -1, string: errorResponse },
-      { seconds: 1.5, string: errorResponse },
-    ])("$seconds => $string", ({ seconds, string }) => {
-      expect(secondsToTimeString(seconds)).toBe(string);
+      { dodgyInput: null },
+      { dodgyInput: undefined },
+      { dodgyInput: "bogus" },
+      { dodgyInput: true },
+      { dodgyInput: new Date() },
+      { dodgyInput: {} },
+      { dodgyInput: -1 },
+      { dodgyInput: 1.5 },
+    ])("dodgy input: $dodgyInput", ({ dodgyInput }) => {
+      expect(() => secondsToTimeString(dodgyInput)).toThrowError(
+        "Don't be silly"
+      );
     });
   });
 

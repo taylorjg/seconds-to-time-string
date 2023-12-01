@@ -36,7 +36,8 @@ const formatBits = (bits) => {
 };
 
 export const secondsToTimeString = (seconds) => {
-  if (!Number.isInteger(seconds) || seconds < 0) return "Don't be silly";
+  if (!Number.isInteger(seconds) || seconds < 0)
+    throw new Error("Don't be silly");
 
   const bits = [];
 
