@@ -32,6 +32,14 @@ describe("secondsToTimeString tests", () => {
       { seconds: 120, string: "2 minutes" },
       { seconds: 121, string: "2 minutes and 1 second" },
       { seconds: 3661, string: "1 hour, 1 minute and 1 second" },
+      {
+        seconds: 31626061,
+        string: "1 year, 1 day, 1 hour, 1 minute and 1 second",
+      },
+      {
+        seconds: 127702942,
+        string: "4 years, 18 days, 1 hour, 2 minutes and 22 seconds",
+      },
     ])("$seconds => $string", ({ seconds, string }) => {
       expect(secondsToTimeString(seconds)).toBe(string);
     });

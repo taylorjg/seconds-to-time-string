@@ -1,7 +1,11 @@
 const ONE_MINUTE_AS_SECONDS = 60;
 const ONE_HOUR_AS_SECONDS = ONE_MINUTE_AS_SECONDS * 60;
+const ONE_DAY_AS_SECONDS = ONE_HOUR_AS_SECONDS * 24;
+const ONE_YEAR_AS_SECONDS = ONE_DAY_AS_SECONDS * 365; // Well, approximately!
 
 const BREAKPOINTS = [
+  { threshold: ONE_YEAR_AS_SECONDS, designation: "year" },
+  { threshold: ONE_DAY_AS_SECONDS, designation: "day" },
   { threshold: ONE_HOUR_AS_SECONDS, designation: "hour" },
   { threshold: ONE_MINUTE_AS_SECONDS, designation: "minute" },
 ];
