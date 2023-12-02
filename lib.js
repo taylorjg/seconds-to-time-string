@@ -22,23 +22,27 @@ const formatCount = (count, designation) => {
 };
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat
-const formatter = new Intl.ListFormat("en", {
-  style: "long",
+const listFormat = new Intl.ListFormat("en", {
   type: "conjunction",
+  style: "long",
 });
 
-const formatBits = (bits) => {
+const joinBits = (bits) => {
   const nonEmptyBits = bits.filter(Boolean);
-  const formatted = formatter.format(nonEmptyBits);
+  const joinedBits = listFormat.format(nonEmptyBits);
 
   // We don't want the Oxford comma! (aka serial comma)
   // https://en.wikipedia.org/wiki/Serial_comma
-  return formatted.replace(", and", " and");
+  return joinedBits.replace(", and", " and");
+};
+
+const checkForDodgyInput = (seconds) => {
+  if (!Number.isInteger(seconds) || seconds < 0)
+    throw new Error("Don't be silly");
 };
 
 export const secondsToTimeString = (seconds) => {
-  if (!Number.isInteger(seconds) || seconds < 0)
-    throw new Error("Don't be silly");
+  checkForDodgyInput(seconds);
 
   const bits = [];
 
@@ -54,5 +58,5 @@ export const secondsToTimeString = (seconds) => {
 
   bits.push(formatCount(remainingSeconds, "second"));
 
-  return formatBits(bits);
+  return joinBits(bits);
 };
